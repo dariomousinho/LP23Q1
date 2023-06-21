@@ -73,7 +73,7 @@ parseAninhado (x:xs) (y:ys) gra (z:zs)
     rodaGrafo3 :: String -> Grafo -> [String] -> Bool
     rodaGrafo3 (x:xs) gra (z:zs)
       | parseAninhado z z gra zs = rodaGrafo3 (x:xs) (atualizaGrafo gra z) (z:zs) 
-      | otherwise = parseAninhado xs xs (v:vs, a:as, p) zs
+      | otherwise = parseAninhado xs xs gra zs
     rodaGrafoU :: String -> Grafo -> [String] -> Int -> Bool
     rodaGrafoU (x:xs) (v:vs, a:as, p) (z:zs) count
       | parseAninhado z z (v:vs, a:as, p) zs && count == 1 = parseAninhado xs xs (atualizaGrafo (v:vs, a:as, p) z) (drop 2 (z:zs))
@@ -151,11 +151,11 @@ main = do
   relacoes <- entraAresta
 
   -- PDL
-  let input = "(a;b;b)U(a;a)"
+  let input = "a;b"
       reverseInput =  reverse input
   let pdlEntrada = reverse (verificaTeste reverseInput reverseInput)
-
-  let grafo = buildGrafo estados relacoes
+  
+  let grafo = buildGrafo estados (reverse relacoes)
   
   let resposta = parseAninhado pdlEntrada pdlEntrada grafo []
   showGrafo grafo
@@ -174,5 +174,4 @@ main = do
 --   let input = "(a)*(c)U(d)a;b;(y)*"
 --   let resposta = controlaParentheses input []
 --   print resposta
-
 
