@@ -151,7 +151,7 @@ main = do
   relacoes <- entraAresta
 
   -- PDL
-  let input = "a;b"
+  let input <- getLine
       reverseInput =  reverse input
   let pdlEntrada = reverse (verificaTeste reverseInput reverseInput)
   
